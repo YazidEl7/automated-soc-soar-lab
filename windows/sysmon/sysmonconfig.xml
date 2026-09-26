@@ -1,0 +1,31 @@
+<Sysmon schemaversion="4.90">
+  <HashAlgorithms>md5,sha256,IMPHASH</HashAlgorithms>
+  <EventFiltering>
+    <!-- Event ID 1: Process Creation -->
+    <RuleGroup name="Process Creation Detection" groupRelation="or">
+      <ProcessCreate onmatch="include">
+        <!-- Mimikatz Execution Detection -->
+        <Image condition="image">mimikatz.exe</Image>
+        <OriginalFileName condition="is">mimikatz.exe</OriginalFileName>
+        <CommandLine condition="contains">sekurlsa::logonpasswords</CommandLine>
+        <CommandLine condition="contains">privilege::debug</CommandLine>
+        <CommandLine condition="contains">lsadump::sam</CommandLine>
+      </ProcessCreate>
+    </RuleGroup>
+
+    <!-- Event ID 10: ProcessAccess (LSASS Memory Access) -->
+    <RuleGroup name="LSASS Memory Dumping" groupRelation="or">
+      <ProcessAccess onmatch="include">
+        <TargetImage condition="is">C:\Windows\System32\lsass.exe</TargetImage>
+      </ProcessAccess>
+    </RuleGroup>
+
+    <!-- Event ID 3: Network Connection Detection -->
+    <RuleGroup name="Network Telemetry" groupRelation="or">
+      <NetworkConnect onmatch="include">
+        <DestinationPort condition="is">3389</DestinationPort> <!-- RDP Telemetry -->
+        <DestinationPort condition="is">445</DestinationPort>  <!-- SMB Telemetry -->
+      </NetworkConnect>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>
