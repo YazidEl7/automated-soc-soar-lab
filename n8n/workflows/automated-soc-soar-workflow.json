@@ -1,0 +1,119 @@
+{
+  "name": "Wazuh Automated Incident Response Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "wazuh-alert",
+        "options": {}
+      },
+      "name": "Wazuh Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "Extracted_IP",
+              "value": "={{ $json.body.all_fields.data.win.eventdata.ipAddress || $json.body.all_fields.data.srcip }}"
+            },
+            {
+              "name": "Extracted_Hash",
+              "value": "={{ $json.body.all_fields.data.win.eventdata.hashes }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Extract IoCs",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [320, 300]
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $node['Extract IoCs'].json['Extracted_Hash'] }}",
+        "rules": {
+          "rules": [
+            {
+              "operation": "isNotEmpty",
+              "output": 0
+            }
+          ]
+        }
+      },
+      "name": "IoC Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [540, 300]
+    },
+    {
+      "parameters": {
+        "url": "=https://www.virustotal.com/api/v3/files/{{ $node['Extract IoCs'].json['Extracted_Hash'] }}",
+        "authentication": "genericCredentialType",
+        "genericCredentialType": "httpHeaderAuth",
+        "options": {}
+      },
+      "name": "VirusTotal Lookup",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [760, 200]
+    },
+    {
+      "parameters": {
+        "model": "gemini-pro",
+        "prompt": "={{ $node['Wazuh Webhook'].json }} + {{ $node['VirusTotal Lookup'].json }}"
+      },
+      "name": "Gemini AI Analysis",
+      "type": "n8n-nodes-base.googlePalm",
+      "typeVersion": 1,
+      "position": [980, 200]
+    },
+    {
+      "parameters": {
+        "url": "https://192.168.100.235/api/v1/cases",
+        "method": "POST",
+        "jsonParameters": true,
+        "options": {}
+      },
+      "name": "DFIR-IRIS Create Case",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [1200, 200]
+    },
+    {
+      "parameters": {
+        "webhookUrl": "https://discord.com/api/webhooks/YOUR_DISCORD_WEBHOOK",
+        "content": "={{ $node['Gemini AI Analysis'].json.text }}"
+      },
+      "name": "Discord Notification",
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 1,
+      "position": [1420, 200]
+    }
+  ],
+  "connections": {
+    "Wazuh Webhook": {
+      "main": [[{ "node": "Extract IoCs", "type": "main", "index": 0 }]]
+    },
+    "Extract IoCs": {
+      "main": [[{ "node": "IoC Switch", "type": "main", "index": 0 }]]
+    },
+    "IoC Switch": {
+      "main": [[{ "node": "VirusTotal Lookup", "type": "main", "index": 0 }]]
+    },
+    "VirusTotal Lookup": {
+      "main": [[{ "node": "Gemini AI Analysis", "type": "main", "index": 0 }]]
+    },
+    "Gemini AI Analysis": {
+      "main": [[{ "node": "DFIR-IRIS Create Case", "type": "main", "index": 0 }]]
+    },
+    "DFIR-IRIS Create Case": {
+      "main": [[{ "node": "Discord Notification", "type": "main", "index": 0 }]]
+    }
+  }
+}
