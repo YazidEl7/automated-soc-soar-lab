@@ -3,7 +3,7 @@
 This document details the multi-tier telemetry collection, correlation, orchestration, and active response framework for the **Federator Project**.
 
 ---
-
+```
 ## 3-Tier SOAR Architecture
 [ Tier 1: Telemetry Collection ]
 ├── Windows Endpoint (Sysmon Event ID 1, 3, 10)
@@ -20,7 +20,7 @@ This document details the multi-tier telemetry collection, correlation, orchestr
 ├── DFIR-IRIS (Automatic Ticket Generation & IOC Logging)
 ├── Discord Webhook (Human-in-the-Loop Approval Request)
 └── pfSense Gateway (REST API Enforcement -> SOC_Blocked_IPs Alias)
-
+```
 ---
 
 ## 🎯 MITRE ATT&CK Mapping Matrix
