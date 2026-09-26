@@ -68,7 +68,7 @@ v
 | **Wazuh Server** | `192.168.100.233` | DMZ (`192.168.100.0/24`) | SIEM / XDR Manager & Indexer |
 | **DFIR-IRIS Server** | `192.168.100.235` | DMZ (`192.168.100.0/24`) | Incident Case Management Platform[cite: 3] |
 | **n8n SOAR Server** | `192.168.100.236` | DMZ (`192.168.100.0/24`) | Workflow Automation & AI Agent Host[cite: 3] |
-
+| **Suricata NIDS** | `192.168.100.237` | DMZ (`192.168.100.0/24`) | Network Intrusion Detection System |
 ---
 
 ## 📂 Repository Structure
@@ -97,8 +97,8 @@ v
 git clone [https://github.com/yazidel7/automated-soc-soar-lab.git](https://github.com/yazidel7/automated-soc-soar-lab.git)
 cd automated-soc-soar-lab
 cp .env.example .env
-```
 # Edit .env with your specific API keys (VirusTotal, Gemini, DFIR-IRIS, Discord)
+```
 
 ### 2. Deploy Containerized Stack (n8n & DFIR-IRIS)
 ```
@@ -106,13 +106,8 @@ docker-compose up -d
 ```
 Access services at:
 
-    n8n Web UI: http://192.168.100.236:5678
-
-    [cite: 3]
-
-    DFIR-IRIS: https://192.168.100.235
-
-    [cite: 3]
+- n8n Web UI: http://192.168.100.236:5678
+- DFIR-IRIS: https://192.168.100.235
 
 ### 3. Deploy Wazuh SIEM Rules & Integration
 
