@@ -1,4 +1,20 @@
 #!/bin/bash
+# Wazuh Integration Script for n8n SOAR Webhook Trigger
+
+ALERT_FILE="$1"
+API_KEY="$2"
+HOOK_URL="http://192.168.100.236:5678/webhook/wazuh-alert"
+
+# Read alert JSON content
+ALERT_JSON=$(cat "$ALERT_FILE")
+
+# Dispatch payload via HTTP POST to n8n Webhook
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d "$ALERT_JSON" \
+  "$HOOK_URL" > /dev/null 2>&1
+
+exit 0#!/bin/bash
 # Example placeholder for a custom Wazuh integration script.
 #
 # IMPORTANT:
