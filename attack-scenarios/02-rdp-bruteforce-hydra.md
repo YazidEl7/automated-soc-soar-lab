@@ -17,4 +17,4 @@ hydra -l Administrator -P /usr/share/wordlists/rockyou.txt rdp://10.1.0.2 -t 4
 
 1. Interactive Prompt: Discord notification delivered to SOC team with [APPROVE BLOCK] action button[cite: 1].
 
-1. Enforcement: Upon approval, n8n issues API/SSH command adding 10.1.0.3 to SOC_Blocked_IPs alias on pfSense, severing host connectivity[cite: 1, 3].
+1. Enforcement: Upon approval, n8n executes the pfSense REST API script (`pfsense/scripts/block_ip.py`), adding 10.1.0.3 to the `SOC_Blocked_IPs` alias and reloading active firewall rules to sever host connectivity[cite: 1, 3, 8].
