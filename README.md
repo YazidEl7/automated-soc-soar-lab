@@ -100,7 +100,7 @@ v
 ├── n8n/                            # SOAR workflow exports & AI prompts
 │   ├── prompts/                    # Gemini LLM system prompt
 │   └── workflows/                  # Complete n8n workflow JSON export
-├── pfsense/                        # Network configuration, firewall rules & SSH scripts
+├── pfsense/                        # Network configuration, firewall rules & active response API scripts
 ├── suricata/                       # Suricata NIDS rule definitions & YAML config
 ├── wazuh/                          # Custom Wazuh detection rules & n8n integration script
 └── windows/                        # Windows Sysmon & Wazuh Agent channel configuration
