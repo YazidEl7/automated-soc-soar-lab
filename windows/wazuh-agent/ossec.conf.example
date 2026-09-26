@@ -1,6 +1,21 @@
-<!-- Example Wazuh agent fragment -->
+<ossec_config>
+  <client>
+    <server>
+      <address>192.168.100.233</address>
+      <port>1514</port>
+      <protocol>tcp</protocol>
+    </server>
+  </client>
 
-<localfile>
-  <location>Microsoft-Windows-Sysmon/Operational</location>
-  <log_format>eventchannel</log_format>
-</localfile>
+  <!-- Collect Sysmon Operational Channel -->
+  <localfile>
+    <location>Microsoft-Windows-Sysmon/Operational</location>
+    <log_format>eventchannel</log_format>
+  </localfile>
+
+  <!-- Collect Windows Security Event Channel -->
+  <localfile>
+    <location>Security</location>
+    <log_format>eventchannel</log_format>
+  </localfile>
+</ossec_config>
