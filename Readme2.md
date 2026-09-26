@@ -140,7 +140,7 @@ systemctl restart wazuh-manager
 - Detection: Windows Security Event ID 4625 -> Wazuh Rule 60122.   
 - Automation: n8n extracts source IP (10.1.0.3) -> Discord notification with "APPROVE BLOCK" button -> Analyst approves -> SSH request to pfSense adds 10.1.0.3 to SOC_Blocked_IPs alias -> Traffic isolated[cite: 1, 3].
 
-🎓 Authors & Academic Credits
+# 🎓 Authors & Academic Credits
 
 - Students: Abdelaziz O, YazidEl7, Akram B, Achraf EL[cite: 3]
 
