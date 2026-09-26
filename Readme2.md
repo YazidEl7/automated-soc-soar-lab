@@ -93,7 +93,7 @@ v
 
 ### 1. Clone & Setup Environment
 ```bash
-git clone [https://github.com/your-username/automated-soc-soar-lab.git](https://github.com/your-username/automated-soc-soar-lab.git)
+git clone [https://github.com/yazidel7/automated-soc-soar-lab.git](https://github.com/yazidel7/automated-soc-soar-lab.git)
 cd automated-soc-soar-lab
 cp .env.example .env
 ```
