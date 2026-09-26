@@ -8,3 +8,10 @@ Validate the automated SOC/SOAR detection, threat intelligence enrichment, AI tr
 2. Execute MimikatzLSASS dump command:
    ```powershell
    .\mimikatz.exe "privilege::debug" "sekurlsa::logonpasswords" exit
+
+## 🔍 Automation Pipeline StepsSysmon / Wazuh: 
+1. Sysmon Event ID 1 captures process execution and flags rule 100002.   
+1. n8n Ingestion: Custom webhook integration passes JSON alert to n8n.   
+1. IoC Enrichment: SHA256 hash extracted and queried against VirusTotal API.   
+1. AI Synthesis: Gemini LLM evaluates event context and flags execution as Critical.   
+1. Incident Tracking: Case automatically created in DFIR-IRIS and alert posted to Discord.
