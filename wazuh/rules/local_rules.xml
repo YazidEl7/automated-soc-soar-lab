@@ -1,15 +1,25 @@
-<!-- Example custom rule.
-     Review and adapt it to your actual Wazuh version and local rules. -->
-
-<group name="custom,sysmon,windows,">
-  <rule id="100002" level="10">
-    <if_sid>61603</if_sid>
-    <match>mimikatz.exe</match>
-    <description>Mimikatz usage detected</description>
+<group name="local,sysmon,mimikatz,rdp,">
+  <!-- Mimikatz Credential Dumping Detection -->
+  <rule id="100002" level="12">
+    <if_sid>61600</if_sid>
+    <field name="win.eventdata.image" type="pcre2">(?i)mimikatz\.exe</field>
+    <description>SOC/SOAR Alert: Mimikatz Credential Dumping Execution Detected on $(win.eventdata.workstationName)</description>
     <mitre>
-      <id>T1003</id>
-      <tactic>Credential Access</tactic>
-      <technique>OS Credential Dumping</technique>
+      <id>T1003.001</id>
     </mitre>
+    <group>credential_dumping,attack,sysmon,</group>
+  </rule>
+
+  <!-- RDP Brute-Force Accumulation Rule -->
+  <rule id="100001" level="10">
+    <if_matched_sid>60122</if_matched_sid>
+    <same_source_ip />
+    <frequency>5</frequency>
+    <timeframe>120</timeframe>
+    <description>SOC/SOAR Alert: Multiple RDP Logon Failures Detected (Possible Brute-Force)</description>
+    <mitre>
+      <id>T1110.001</id>
+    </mitre>
+    <group>authentication_failed,pfsense_block,</group>
   </rule>
 </group>
