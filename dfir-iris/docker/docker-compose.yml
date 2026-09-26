@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  iris-db:
+    image: postgres:15-alpine
+    container_name: iris_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-iris}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-irispass123}
+      POSTGRES_DB: ${POSTGRES_DB:-iris_db}
+    volumes:
+      - iris_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-iris}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  iris-web:
+    image: dfiriris/iris-webapp:latest
+    container_name: iris_web
+    restart: unless-stopped
+    ports:
+      - "192.168.100.235:443:8000"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-iris}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-irispass123}
+      POSTGRES_DB: ${POSTGRES_DB:-iris_db}
+      POSTGRES_HOST: iris-db
+      POSTGRES_PORT: 5432
+      IRIS_SECRET_KEY: ${IRIS_SECRET_KEY:-change_this_secret_key_for_prod}
+    depends_on:
+      iris-db:
+        condition: service_healthy
+    volumes:
+      - iris_app_data:/home/desktop/data
+
+volumes:
+  iris_db_data:
+  iris_app_data:
