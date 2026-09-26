@@ -15,6 +15,7 @@ By unifying **Wazuh (SIEM/XDR)**, **Sysmon**, **Suricata (NIDS)**, **n8n (SOAR)*
 ---
 
 ## 🏗️ Architecture & Data Flow
+```
 +-----------------------------------------------------------------------------------+
 |                                  COLLECTION LAYER                                 |
 |  +--------------------+   +-------------------+   +----------------------------+  |
@@ -56,7 +57,7 @@ v
 |  |  - Dynamic IP Blocking (Alias)   |    |  - Complete Audit Trail & Timeline   |  |
 |  +----------------------------------+    +-------------------------------------+  |
 +-----------------------------------------------------------------------------------+
-
+```
 ## 🌐 Network Addressing Plan
 
 | Component / Host | IP Address | Subnet / Interface | Description |
