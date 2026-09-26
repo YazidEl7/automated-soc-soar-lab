@@ -105,6 +105,18 @@ v
 ├── wazuh/                          # Custom Wazuh detection rules & n8n integration script
 └── windows/                        # Windows Sysmon & Wazuh Agent channel configuration
 ```
+## 📸 Visual Evidence & Screenshots
+
+The end-to-end automated detection, enrichment, and containment pipeline is verified across all core platform components:
+
+| Feature / Demonstration | Evidence Screenshot | Description |
+| :--- | :--- | :--- |
+| **Wazuh Detection** | `![Wazuh Alert](screenshots/01-wazuh-mimikatz-alert.png)` | Wazuh dashboard displaying Rule `100002` execution triggered by Sysmon Event ID 1. |
+| **n8n Automation** | `![n8n Execution](screenshots/02-n8n-workflow-execution.png)` | n8n green execution tree showing JSON ingestion & Gemini LLM API response. |
+| **DFIR-IRIS Case** | `![DFIR-IRIS Ticket](screenshots/03-dfir-iris-case.png)` | Automatically created incident ticket in DFIR-IRIS with extracted IOCs. |
+| **Discord Interactive** | `![Discord Webhook](screenshots/04-discord-interactive-approval.png)` | Discord notification showing threat details and the interactive **[APPROVE BLOCK]** button. |
+| **pfSense Enforcement** | `![pfSense Alias](screenshots/05-pfsense-blocked-alias.png)` | pfSense UI showing `10.1.0.3` dynamically added to the `SOC_Blocked_IPs` firewall alias table. |
+
 ## ⚡ Quick Start Guide
 
 ### 1. Clone & Setup Environment
