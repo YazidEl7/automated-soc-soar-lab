@@ -161,7 +161,7 @@ systemctl restart wazuh-manager
 ## Scenario 2: RDP Brute-Force Attack (Hydra)
 - Attack: hydra -l Administrator -P passlist.txt rdp://10.1.0.2 executed from 10.1.0.3.   
 - Detection: Windows Security Event ID 4625 -> Wazuh Rule 60122.   
-- Automation: n8n extracts source IP (10.1.0.3) -> Discord notification with "APPROVE BLOCK" button -> Analyst approves -> SSH request to pfSense adds 10.1.0.3 to SOC_Blocked_IPs alias -> Traffic isolated[cite: 1, 3].
+- Automation: n8n extracts source IP (10.1.0.3) -> Discord notification with "APPROVE BLOCK" button -> Analyst approves -> pfSense REST API request appends 10.1.0.3 to SOC_Blocked_IPs alias -> Firewall rules reloaded & traffic isolated.
 
 ## 🎓 Authors & Academic Credits
 
