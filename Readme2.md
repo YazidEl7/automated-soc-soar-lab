@@ -71,6 +71,7 @@ v
 ---
 
 ## 📂 Repository Structure
+```
 ├── docker-compose.yml              # Deployment file for n8n & DFIR-IRIS services
 ├── .env.example                    # Environment variables template
 ├── attack-scenarios/
@@ -87,7 +88,7 @@ v
 ├── suricata/                       # Suricata NIDS rule definitions & YAML config
 ├── wazuh/                          # Custom Wazuh detection rules & n8n integration script
 └── windows/                        # Windows Sysmon & Wazuh Agent channel configuration
-
+```
 ## ⚡ Quick Start Guide
 
 ### 1. Clone & Setup Environment
