@@ -71,6 +71,21 @@ v
 | **Suricata NIDS** | `192.168.100.237` | DMZ (`192.168.100.0/24`) | Network Intrusion Detection System |
 ---
 
+## 📋 Prerequisites & System Requirements
+
+### Hardware Requirements
+* **RAM:** Minimum 24 GB 
+* **CPU:** 4 Cores / 8 Threads minimum
+* **Disk Space:** 150 GB free SSD storage
+
+### Software & API Requirements
+* **Hypervisor:** VMware Workstation Pro / ESXi / VirtualBox
+* **Docker Engine & Docker Compose** (installed on n8n/DFIR-IRIS host)
+* **Active API Keys:**
+  * VirusTotal API Key
+  * Google Gemini API Key
+  * Discord Bot / Webhook URL
+
 ## 📂 Repository Structure
 ```
 ├── docker-compose.yml              # Deployment file for n8n & DFIR-IRIS services
@@ -93,8 +108,8 @@ v
 ## ⚡ Quick Start Guide
 
 ### 1. Clone & Setup Environment
-```bash
 git clone [https://github.com/yazidel7/automated-soc-soar-lab.git](https://github.com/yazidel7/automated-soc-soar-lab.git)
+```bash
 cd automated-soc-soar-lab
 cp .env.example .env
 # Edit .env with your specific API keys (VirusTotal, Gemini, DFIR-IRIS, Discord)
@@ -126,17 +141,17 @@ systemctl restart wazuh-manager
 4. Configure credentials for VirusTotal, Gemini LLM, DFIR-IRIS, and Discord Webhook.
 5. Activate the workflow!
 
-# Scenario 1: Credential Dumping (Mimikatz)
+## Scenario 1: Credential Dumping (Mimikatz)
 - Attack: mimikatz.exe "privilege::debug" "ts::logonpasswords" executed on 10.1.0.2.   
 - Detection: Windows Sysmon Event ID 1 -> Wazuh Local Rule 100002.   
 - Automation: n8n extracts executable hash -> VirusTotal lookup (Malware/Trojan) -> Gemini LLM report -> Case generated in DFIR-IRIS -> Discord alert sent.
 
-# Scenario 2: RDP Brute-Force Attack (Hydra)
+## Scenario 2: RDP Brute-Force Attack (Hydra)
 - Attack: hydra -l Administrator -P passlist.txt rdp://10.1.0.2 executed from 10.1.0.3.   
 - Detection: Windows Security Event ID 4625 -> Wazuh Rule 60122.   
 - Automation: n8n extracts source IP (10.1.0.3) -> Discord notification with "APPROVE BLOCK" button -> Analyst approves -> SSH request to pfSense adds 10.1.0.3 to SOC_Blocked_IPs alias -> Traffic isolated[cite: 1, 3].
 
-# 🎓 Authors & Academic Credits
+## 🎓 Authors & Academic Credits
 
 - Students: Abdelaziz O, YazidEl7, Akram B, Achraf EL[cite: 3]
 
@@ -145,3 +160,8 @@ systemctl restart wazuh-manager
 - Institution: SUPMTI (École Supérieure de Management, de Télécommunication et d'Informatique)[cite: 3]
 
 - Program: 5th Year Computer Engineering - Cybersecurity Option (AY 2025-2026)[cite: 3]
+
+
+### 📜 License
+
+Distributed under the MIT License. See LICENSE for more information.
