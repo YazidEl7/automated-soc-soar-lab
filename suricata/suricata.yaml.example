@@ -1,0 +1,2 @@
+# Placeholder for a sanitized Suricata configuration.
+# Keep host-specific paths, credentials, and generated state outside Git.

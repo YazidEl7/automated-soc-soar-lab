@@ -1,0 +1,10 @@
+#!/bin/bash
+# Example placeholder for a custom Wazuh integration script.
+#
+# IMPORTANT:
+# - Do not put secrets directly in this file.
+# - Configure permissions according to your Wazuh installation.
+# - Adapt the script to your Wazuh version and the n8n webhook URL.
+#
+# The integration should receive the Wazuh alert JSON and POST it to the
+# n8n webhook endpoint.

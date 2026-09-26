@@ -1,0 +1,15 @@
+<!-- Example custom rule.
+     Review and adapt it to your actual Wazuh version and local rules. -->
+
+<group name="custom,sysmon,windows,">
+  <rule id="100002" level="10">
+    <if_sid>61603</if_sid>
+    <match>mimikatz.exe</match>
+    <description>Mimikatz usage detected</description>
+    <mitre>
+      <id>T1003</id>
+      <tactic>Credential Access</tactic>
+      <technique>OS Credential Dumping</technique>
+    </mitre>
+  </rule>
+</group>

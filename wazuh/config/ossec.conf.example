@@ -1,0 +1,11 @@
+<!-- Example fragments only.
+     Merge into the real Wazuh configuration rather than replacing it. -->
+
+<!-- Sysmon event channel -->
+<localfile>
+  <location>Microsoft-Windows-Sysmon/Operational</location>
+  <log_format>eventchannel</log_format>
+</localfile>
+
+<!-- Custom integration example.
+     Use the integration mechanism appropriate to your installed Wazuh version. -->
